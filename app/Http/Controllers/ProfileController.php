@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Profile;
 use App\Http\Requests\StoreProfileRequest;
 use App\Http\Requests\UpdateProfileRequest;
+use App\Models\User;
 
 class ProfileController extends Controller
 {
@@ -45,20 +46,10 @@ class ProfileController extends Controller
      * @param  \App\Models\Profile  $profile
      * @return \Illuminate\Http\Response
      */
-    public function show(Profile $profile)
+    public function show()
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Profile  $profile
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Profile $profile)
-    {
-        //
+        $user = auth()->user();
+        return view('dashboard.profile.profile', compact('user'));
     }
 
     /**

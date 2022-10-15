@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PropertyController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +18,16 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/cpanel', function () {
+    return view('index');
+});
+
+Route::resource('properties', PropertyController::class);
+Auth::routes();
+
+// profile
+Route::get('profile', [ProfileController::class, 'show'] )->name('profile.show');
+Route::post('profile', [ProfileController::class, 'update'] )->name('profile.update');
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

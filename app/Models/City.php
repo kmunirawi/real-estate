@@ -9,4 +9,10 @@ class City extends Model
 {
     use HasFactory;
     protected $fillable = ['name'];
+
+    //**Relations */
+    public function properties()
+    {
+      return $this->hasMany(Property::class);
+    }
 }

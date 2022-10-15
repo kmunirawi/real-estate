@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Property;
 use App\Http\Requests\StorePropertyRequest;
 use App\Http\Requests\UpdatePropertyRequest;
+use App\Models\City;
+use App\Models\Type;
 
 class PropertyController extends Controller
 {
@@ -15,7 +17,8 @@ class PropertyController extends Controller
      */
     public function index()
     {
-        //
+        $properties = Property::paginate(10);
+        return view('dashboard.property.index', compact('properties'));
     }
 
     /**
@@ -25,7 +28,10 @@ class PropertyController extends Controller
      */
     public function create()
     {
-        //
+        $property = new Property();
+        $cities = City::all();
+        $types = Type::all();
+        return view('dashboard.property.create', compact('property', 'types', 'cities'));
     }
 
     /**
@@ -36,7 +42,19 @@ class PropertyController extends Controller
      */
     public function store(StorePropertyRequest $request)
     {
-        //
+        $user_id = auth()->user()->id;
+
+        $data = $request->all();
+        $data['user_id'] = $user_id;
+
+        // dd($data);
+        Property::create($data);
+
+        return redirect()->route('properties.index')
+            ->with('success', 'Property created successfully');
+
+        // return view('dashboard.property.index')
+        //     ->with('success', 'Property created successfully');
     }
 
     /**
@@ -47,7 +65,8 @@ class PropertyController extends Controller
      */
     public function show(Property $property)
     {
-        //
+        $property = Property::findOrFail($property->id);
+        return view('dashboard.property.show', compact('property'));
     }
 
     /**

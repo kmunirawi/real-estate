@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\City;
+use App\Models\Type;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -22,9 +23,10 @@ return new class extends Migration
             $table->integer('rooms')->nullable();
             $table->double('price')->required();
             // $table->enum('type', [1,2])->required();
-            $table->tinyInteger('type')->required();
+            $table->tinyInteger('kind')->required(); // SALE - RENT
             $table->foreignIdFor(User::class);
             $table->foreignIdFor(City::class);
+            $table->foreignIdFor(Type::class);
             $table->timestamps();
         });
     }
