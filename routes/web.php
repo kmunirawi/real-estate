@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PropertyController;
+use App\Http\Controllers\SiteController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,19 +16,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [SiteController::class, 'index']);
 
-Route::get('/cpanel', function () {
-    return view('index');
-});
-
-Route::resource('properties', PropertyController::class);
 Auth::routes();
+Route::get('properties', [SiteController::class, 'showAllProperties'])->name('showAllProperties');
 
-// profile
-Route::get('profile', [ProfileController::class, 'show'] )->name('profile.show');
-Route::post('profile', [ProfileController::class, 'update'] )->name('profile.update');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::middleware('auth')->group(function () {
+    // profile
+    Route::get('profile', [ProfileController::class, 'show'])->name('profile.show');
+    Route::post('profile', [ProfileController::class, 'update'])->name('profile.update');
+
+
+    Route::prefix('dashboard', function () {
+        Route::get('/cpanel', function () {
+            return view('index');
+        });
+        Route::resource('properties', PropertyController::class);
+    });
+
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+});
