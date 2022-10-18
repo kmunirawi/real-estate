@@ -22,7 +22,7 @@ return new class extends Migration
             $table->integer('area')->required();
             $table->integer('rooms')->nullable();
             $table->double('price')->required();
-            // $table->enum('type', [1,2])->required();
+            $table->tinyInteger('status')->default(1)->comment('1-available, 2-ordered'); // 1
             $table->tinyInteger('kind')->required(); // SALE - RENT
             $table->foreignIdFor(User::class);
             $table->foreignIdFor(City::class);

@@ -76,34 +76,36 @@
               </p>
             </a>
           </li> --}}
+                  @if (superAdmin())
                   <li class="nav-item">
-                      <a href="#" class="nav-link">
-                          <i class="nav-icon fas fa-copy"></i>
-                          <p>
-                            Properties
-                              <i class="fas fa-angle-left right"></i>
-                              <span class="badge badge-info right">6</span>
-                          </p>
-                      </a>
-                      <ul class="nav nav-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-copy"></i>
+                        <p>
+                          Properties
+                            <i class="fas fa-angle-left right"></i>
+                            <span class="badge badge-info right">6</span>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
 
-                          <li class="nav-item">
-                              <a href="{{route('properties.index')}}" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Show All properties</p>
-                              </a>
+                        <li class="nav-item">
+                            <a href="{{route('properties.index')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Show All properties</p>
+                            </a>
 
-                      </ul>
-                      <ul class="nav nav-treeview">
+                    </ul>
+                    <ul class="nav nav-treeview">
 
-                          <li class="nav-item">
-                              <a href="{{route('properties.create')}}" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Add New Property</p>
-                              </a>
+                        <li class="nav-item">
+                            <a href="{{route('properties.create')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Add New Property</p>
+                            </a>
 
-                      </ul>
-                  </li>
+                    </ul>
+                </li>
+                  @endif
                   <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-copy"></i>
                     <p>

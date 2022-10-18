@@ -21,7 +21,7 @@ return new class extends Migration
             $table->foreignIdFor(Property::class);
             $table->dateTime('start')->required();
             $table->dateTime('end')->required();
-            $table->tinyInteger('status')->default(1);
+            $table->tinyInteger('status')->default(1); // 1-running - 2-finish
             $table->timestamps();
         });
     }

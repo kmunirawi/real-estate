@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PropertyController;
-use App\Http\Controllers\SiteController;
+use App\Http\Controllers\Site\SiteController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,11 +16,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [SiteController::class, 'index']);
 
 Auth::routes();
-Route::get('properties', [SiteController::class, 'showAllProperties'])->name('showAllProperties');
 
+Route::prefix('front')->group(function () {
+
+    Route::get('/', [SiteController::class, 'index']);
+
+    Route::get('properties', [SiteController::class, 'showAllProperties'])->name('showAllProperties');
+});
 
 Route::middleware('auth')->group(function () {
     // profile
@@ -28,11 +32,15 @@ Route::middleware('auth')->group(function () {
     Route::post('profile', [ProfileController::class, 'update'])->name('profile.update');
 
 
-    Route::prefix('dashboard', function () {
-        Route::get('/cpanel', function () {
+    Route::prefix('admin')->group(function () {
+        Route::get('/', function () {
             return view('index');
+        })->name('dashboard.index');
+
+        Route::middleware('userType')->group(function () {
+
+            Route::resource('properties', PropertyController::class);
         });
-        Route::resource('properties', PropertyController::class);
     });
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

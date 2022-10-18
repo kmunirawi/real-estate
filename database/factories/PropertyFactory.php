@@ -24,6 +24,7 @@ class PropertyFactory extends Factory
             'area' => rand(15, 80),
             'rooms' => rand(0, 5),
             'price' => rand(15, 800),
+            'status' => rand(1, 2),
             'kind' => rand(1, 2),
             'user_id' => $this->faker->randomElement(User::all())->id,
             'city_id' => $this->faker->randomElement(City::all())->id,
